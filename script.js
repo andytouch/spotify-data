@@ -22,11 +22,15 @@ document.getElementById('processButton').addEventListener('click', () => {
         return acc;
       }, {});
 
+      // Sort artists by count (descending)
+      const sortedArtists = Object.entries(artistCounts)
+          .sort(([, countA], [, countB]) => countB - countA);
+
       // Display results
-      const resultHtml = Object.entries(artistCounts)
-        .map(([artist, count]) => `<p>${artist}: ${count}</p>`)
-        .join('');
-      resultsDiv.innerHTML = `<h3>Artist Counts:</h3>${resultHtml}`;
+      const resultHtml = sortedArtists
+          .map(([artist, count]) => `<p>${artist}: ${count}</p>`)
+          .join('');
+      resultsDiv.innerHTML = `<h3>Artist Counts (Sorted):</h3>${resultHtml}`;
     } catch (error) {
       resultsDiv.innerHTML = '<p class="text-danger">Error parsing JSON file. Please check the format.</p>';
     }
